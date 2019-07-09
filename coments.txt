@@ -1,0 +1,17 @@
+For the distance sensor:
+  In the data sheet I can see that the distance sensor has range of 0 to 200 mm and a resolution of 16 bits so, in the look of table for the fist values I used 0, 0, 0 and for the second ones I used 0.2, 65 535, 0. The first value for the second values are the max value in this case 200mm=0.2m, the second value is the resolution, I used the formula (2^16)-1=65 535 and the last one is the noise in this case I used 0.
+
+For the motors:
+  I used the motor with 12V and 5.6A (high-power), this Pololu has an gear 34:1 with 290 RPM and a torque 120 oz-in. So for the max velocity I used the formula to convert RPM to rad/s, the formula is rad/s=(2*PI*290 RPM)/60 = 30.3687rad/s. And for the torque I just converted the units 120 oz-in to Nm so, the equivalance is 1Nm = 141.611928 oz-in then I have that 120 oz-in = 0.847386Nm.
+
+For the encoder:
+  In the data sheet said that the motor provides 1632.67 counts per revolution then we used the formula (2*PI)/1632.67 = 0.003848411.
+
+For the code:
+  In the line 69 to 84 I used a formula to calculate the RPM for each wheel so, in the pos_final I take a previous value and the new value to obtain with a substraction the exactly step for the position sensor then the value is divided by 0.064 that is the TIME STEP to obtain the radian, then I used a formula to convet the rad to RPM, the formula is ((rad*60)/2*PI).
+
+  In the line 87 to 103 I calculate the linear velocity for the robot, first I calculate the velocity for each wheel multiply the radian by the radius of the wheel then I calculate the average for the linear velocity, the part where I used 3 different IF is for convert the negative values to positive when the wheel is rotating to the other side.
+
+  In the line 106 to 111 I activate the motors due to the robot always go forward.
+
+  In the line 113 to 146 are the conditions to rotate to the left or right, I activated variables for the different moves that I want and I making to rotate the robot a time in order to avoid obstaculs. 
